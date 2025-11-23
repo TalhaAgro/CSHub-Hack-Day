@@ -109,6 +109,15 @@ button:hover {
 }
 /* end of Buttons */
 
+/* Music form */
+
+.musicForm h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* end of Music form */
+
 /* DEVS */
 .devs h1 {
   font-size: 35px;

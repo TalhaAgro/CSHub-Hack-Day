@@ -24,6 +24,15 @@ export function UserAudioPlayback({ file, changeFileIndex }) {
   );
 }
 
+export function PlaybackWithAttribution({ file, attribution }) {
+  return (
+    <div>
+      <Playback file={file} />
+      <h5>{attribution}</h5>
+    </div>
+  );
+}
+
 export default function Playback({ file }) {
   return (
     <audio controls>
