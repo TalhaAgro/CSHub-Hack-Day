@@ -1,6 +1,18 @@
 # A Mood-Based Mucic Recommendation App- Planning & Features Document
+
 ## Author
 Viola Sergyous
+
+**Role & Contribution:**
+- Documenting the project and writing PlANNING & FEATURES
+- Suggesting additional feature ideas and organizing them
+- Preparing README for the project
+
+** Note:**
+Original app idea by Talha Agro
+Frontend tasks are assigned to Nhat Minh Phan
+Backend tasks are assigned to Talha Agro
+
 ## Project Summary
 An AI-powered app that:
   - Recommends music based on the user's mood or what they write about how they feel.
