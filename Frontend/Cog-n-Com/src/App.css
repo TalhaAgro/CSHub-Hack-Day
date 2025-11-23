@@ -1,0 +1,167 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Non-template CSS */
+
+/* Brand */
+.brand {
+  color: inherit;
+  -webkit-text-stroke: 0px transparent;
+  will-change: color, -webkit-text-stroke;
+  transition: color 0.25s, -webkit-text-stroke 0.3s;
+}
+
+#CogNComSubheading:hover .brand {
+  color: gold;
+  -webkit-text-stroke: 1px black;
+}
+/* end of Brand */
+
+/* Upload Audio Box */
+#uploadAudio {
+  background-color: #888;
+  padding-top: 25px;
+  padding-bottom: 10px;
+  color: black;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 1%;
+  border-radius: 10px;
+  border: 0px dashed transparent;
+  will-change: background-color, border;
+  transition: background-color 0.25s, border 0.25s;
+}
+
+#uploadAudio:hover {
+  background-color: #bbebfa;
+  border: 2px dashed blue;
+}
+
+/* end of Upload Audio Box */
+
+/* Error Text Ref */
+
+#errorText {
+  color: red;
+}
+
+/* end of Error Text Ref */
+
+/* Buttons */
+button {
+  border-radius: 8px;
+  border: 1px solid white;
+  padding: 0.6em 1.2em;
+  margin: 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: Helvetica;
+  background-color: green;
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+  color: white;
+  will-change: background-color;
+}
+
+button:hover {
+  background-color: rgb(7, 155, 56);
+  border-color: white;
+}
+/* end of Buttons */
+
+/* DEVS */
+.devs h1 {
+  font-size: 35px;
+}
+
+.devsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.devsContainer div {
+  border-radius: 10px;
+  background-color: #888;
+  padding: 20px;
+  margin: 10px;
+  font-size: 20px;
+  max-width: 20%;
+  filter: none;
+  will-change: filter;
+  transition: filter 0.25s;
+}
+
+.devsContainer div:hover {
+  filter: drop-shadow(0px 6px 4px black);
+}
+
+/* The names in the description boxes */
+.devsContainer div h3 {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.devsContainer div p {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.devsContainer div img {
+  width: 70%;
+  aspect-ratio: auto;
+  border-radius: 50%;
+  margin-left: 0px;
+  margin-right: 0px;
+  border: 1px solid black;
+  box-shadow: 0px 0px 0px transparent;
+  will-change: box-shadow;
+  transition: box-shadow 0.25s;
+}
+
+.devsContainer div:hover img {
+  box-shadow: 0px 0px 10px black;
+}
+
+/* end of DEVS */
