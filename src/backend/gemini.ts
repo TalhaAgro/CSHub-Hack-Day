@@ -6,14 +6,14 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { AnalysisResult } from "./types";
 
-//helper func to convert File object to Base64 for Gemini prompt
+//helper to convert File object to Base64 for Gemini
 const fileToPart = (file: File): Promise<{ inlineData: { data: string; mimeType: string } }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      //Remove the "data:audio/mp3;base64," prefix
-      const base64Data = base64String.split(',')[1];
+      //remove the "data:audio/mp3;base64," prefix if exists
+      const base64Data = base64String.includes(',') ? base64String.split(',')[1] : base64String;
       resolve({
         inlineData: {
           data: base64Data,
@@ -34,22 +34,21 @@ export const analyzeMusic = async (
   link: string
 ): Promise<AnalysisResult> => {
   try {
-    //Initialize Gemini Client
-    //process.env.API_KEY is handled by the env
+    //initialize Gemini Client
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    //define schema
-    //this enforces the return type so the frontend code doesn't crash and burn.
+    //define the Schema
+    //forces Gemini to return JSON matching this structure
     const songSchema: Schema = {
       type: Type.OBJECT,
       properties: {
         title: { type: Type.STRING },
         artist: { type: Type.STRING },
         year: { type: Type.STRING },
-        link: { type: Type.STRING, description: "A valid YouTube or Spotify search URL" },
-        reason: { type: Type.STRING, description: "A short sentence explaining why this fits the user's request." }
+        link: { type: Type.STRING, description: "A YouTube or Spotify URL for this specific song" },
+        reason: { type: Type.STRING, description: "A short sentence explaining why you recommended this." }
       },
-      required: ["title", "artist", "year"],
+      required: ["title", "artist", "year", "reason"],
     };
 
     const responseSchema: Schema = {
@@ -64,58 +63,49 @@ export const analyzeMusic = async (
              link: { type: Type.STRING },
           },
           nullable: true,
-          description: "The identified song if an audio file was provided. Null if no file or unrecognized."
+          description: "If an audio file was uploaded, this contains the identified song details. If no file or not recognized, this is null."
         },
         recommendations: {
           type: Type.ARRAY,
           items: songSchema,
-          description: "A list of exactly 3 to 5 recommended songs.",
+          description: "A list of exactly 3 to 5 recommended songs based on the user's inputs.",
         },
         message: {
            type: Type.STRING,
-           description: "A short, friendly summary message about the selection."
+           description: "A friendly, 1-sentence summary of the vibe of these songs."
         }
       },
-      required: ["recommendations"],
+      required: ["recommendations", "message"],
     };
 
+    //prepare the Prompt
     const parts: any[] = [];
+    let promptText = "You are a sophisticated musicologist. ";
 
-    //prepare inputs
-    let promptText = "You are a music expert assistant. ";
-
-    //handle audio File
+    //handle audio file
     if (file) {
       const mediaPart = await fileToPart(file);
       parts.push(mediaPart);
-      promptText += "First, analyze the attached audio file. Identify the song title, artist, and release year. Populating the 'recognized' field in the JSON is your priority if audio is present. ";
+      promptText += "First, analyze the audio file provided. Identify the song title, artist, and year. Fill the 'recognized' field with this data. ";
     } else {
-      promptText += "The user has not provided an audio file to recognize. Leave the 'recognized' field null. ";
+      promptText += "No audio file provided for recognition. The 'recognized' field must be null. ";
     }
 
-    //handle recommendations logic
-    promptText += "Next, please provide 3 to 5 song recommendations based on the following context:\n";
+    //handle recommendations
+    promptText += "Next, recommend 3 to 5 songs based on the following constraints:\n";
     
     const allMoods = [...moods];
     if (customMood) allMoods.push(customMood);
     
-    if (allMoods.length > 0) {
-      promptText += `- User Moods: ${allMoods.join(", ")}.\n`;
-    }
+    if (allMoods.length > 0) promptText += `- Moods: ${allMoods.join(", ")}\n`;
+    if (genres.length > 0) promptText += `- Genres: ${genres.join(", ")}\n`;
+    if (link) promptText += `- Musical Style Reference: ${link}\n`;
     
-    if (genres.length > 0) {
-      promptText += `- User Genres: ${genres.join(", ")}.\n`;
-    }
-
-    if (link) {
-        promptText += `- User Reference Link: ${link}. Use the musical style of this linked song/artist to inform recommendations.\n`;
-    }
-
     if (file) {
-        promptText += `- Also use the recognized song from the audio file (if found) to find similar sounding tracks.\n`;
+        promptText += `- Also consider the style/genre of the recognized audio file for the recommendations.\n`;
     }
 
-    promptText += "Return the result strictly as JSON matching the provided schema please";
+    promptText += "Ensure the recommendations are real, existing songs. Return ONLY JSON.";
 
     parts.push({ text: promptText });
 
@@ -126,21 +116,20 @@ export const analyzeMusic = async (
       config: {
         responseMimeType: "application/json",
         responseSchema: responseSchema,
-        // Temperature 0.6 is what I went with, feel free to change in future
-        temperature: 0.6, 
+        temperature: 0.5, // Balanced creativity
       },
     });
 
-    //parse response now
+    //parse response
     if (response.text) {
-      const data = JSON.parse(response.text);
-      return data as AnalysisResult;
+      //we safely parse it just in case
+      return JSON.parse(response.text) as AnalysisResult;
     }
 
-    throw new Error("No response received from Gemini.");
+    throw new Error("Empty response from AI model");
 
   } catch (error) {
-    console.error("Gemini Backend Error:", error);
+    console.error("Gemini Analysis Failed:", error);
     throw error;
   }
 };

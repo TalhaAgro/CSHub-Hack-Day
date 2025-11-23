@@ -2,29 +2,21 @@
  * Author: Talha Agro
  * this is the structure of each song track that will display on the frontend
  */
-
 export interface Song {
   title: string;
   artist: string;
   year: string;
   link?: string;
   genre?: string;
-  reason?: string; // Added reason so the AI can explain why it recommended this
+  reason?: string; // Explanation for why this song was picked
 }
 
 export interface AnalysisResult {
-  recognized?: Song;
+  recognized?: Song | null; // Can be null if no file uploaded
   recommendations: Song[];
-  message?: string;
+  message?: string; // A friendly summary message
 }
 
-export interface DevProfile {
-  name: string;
-  role: string;
-  imageUrl: string;
-}
-
-// These constants drive the UI checkboxes.
-// As the backend dev, you control the available categories here.
-export const MOODS = ['Sad', 'Nostalgic', 'Happy', 'Energetic', 'Chill', 'Focus', 'Romantic', 'Angry'];
-export const GENRES = ['Jazz', 'Pop', 'Rock', 'Classical', 'Hip-Hop', 'Electronic', 'R&B', 'Country', 'Indie'];
+// UI Constants
+export const MOODS = ['Sad', 'Nostalgic', 'Happy', 'Energetic', 'Chill', 'Focus', 'Romantic', 'Angry', 'Dreamy'];
+export const GENRES = ['Jazz', 'Pop', 'Rock', 'Classical', 'Hip-Hop', 'Electronic', 'R&B', 'Country', 'Indie', 'Metal'];
