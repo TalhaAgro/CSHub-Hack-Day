@@ -4,28 +4,27 @@
  */
 
 export interface Song {
-    title: string;
-    artist: string;
-    year: string;
-    link: string;
-    genre: string;
+  title: string;
+  artist: string;
+  year: string;
+  link?: string;
+  genre?: string;
+  reason?: string; // Added reason so the AI can explain why it recommended this
 }
 
-//this is the structure of each final output after analysis that will display on the frontend
-export interface AnalysisResult{
-    recognised: Song;
-    recommendations: Song[];
-    message: string;
+export interface AnalysisResult {
+  recognized?: Song;
+  recommendations: Song[];
+  message?: string;
 }
 
-//this is just for convenience, for each credited developer
 export interface DevProfile {
-    name: string;
-    role: string;
-    imageURL: string;
-    email: string;
+  name: string;
+  role: string;
+  imageUrl: string;
 }
 
-//Hard coded values for the moods and genres list
+// These constants drive the UI checkboxes.
+// As the backend dev, you control the available categories here.
 export const MOODS = ['Sad', 'Nostalgic', 'Happy', 'Energetic', 'Chill', 'Focus', 'Romantic', 'Angry'];
 export const GENRES = ['Jazz', 'Pop', 'Rock', 'Classical', 'Hip-Hop', 'Electronic', 'R&B', 'Country', 'Indie'];
