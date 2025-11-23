@@ -5,6 +5,8 @@
 
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { AnalysisResult } from "./types";
+import "dotenv/config";
+
 
 //helper to convert File object to Base64 for Gemini
 const fileToPart = (file: File): Promise<{ inlineData: { data: string; mimeType: string } }> => {
