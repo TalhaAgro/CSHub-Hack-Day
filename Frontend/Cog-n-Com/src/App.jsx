@@ -7,6 +7,7 @@ import talhaPhoto from "./assets/linkedin/talha.jpg";
 import uploadIcon from "./assets/Upload.png";
 import { UserAudioPlayback } from "./components/Playback";
 import Form from "./components/Form";
+import Results from "./components/Results";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const fileInputRef = useRef(null); // Hidden file input button
   const [audioFileHistory, setAudioHistory] = useState([]); // Audio file history array. New files get appended to the end.
   const [fileHistoryIndex, setFileHistoryIndex] = useState(0); // [0, +inf) ; The current index of the audio file history for playback
+  const [showResults, setShowResults] = useState(false);
 
   const showErrorWithTimeout = () => {
     setShowError(true);
@@ -98,6 +100,7 @@ function App() {
         />
       ) : null}
       <Form />
+      {showResults ? <Results /> : null}
       <hr></hr>
       <div className="devs">
         <h1>Meet the Devs!</h1>

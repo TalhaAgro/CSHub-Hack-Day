@@ -11,13 +11,34 @@ export default function Form() {
         <i>Moods</i>
       </h2>
       <label>
-        <input type="checkbox" name="Mood 1"></input>Mood 1
+        <input type="checkbox" name="Happy"></input>Happy
       </label>
       <label>
-        <input type="checkbox" name="Mood 2"></input>Mood 2
+        <input type="checkbox" name="Sad"></input>Sad
       </label>
       <label>
-        <input type="checkbox" name="Mood 3"></input>Mood 3
+        <input type="checkbox" name="Romantic"></input>Romantic
+      </label>
+      <label>
+        <input type="checkbox" name="Chill"></input>Chill
+      </label>
+      <label>
+        <input type="checkbox" name="Angry"></input>Angry
+      </label>
+      <label>
+        <input type="checkbox" name="Focus"></input>Focus
+      </label>
+      <label>
+        <input type="checkbox" name="Energetic"></input>Energetic
+      </label>
+      <label>
+        <input type="checkbox" name="Chill"></input>Chill
+      </label>
+      <label>
+        <input type="checkbox" name="Chill"></input>Dreamy
+      </label>
+      <label>
+        <input type="checkbox" name="Nostalgic"></input>Nostalgic
       </label>
       <br></br>
       <input
@@ -47,6 +68,46 @@ export default function Form() {
       />
       <label>
         <input type="checkbox" name="Jazz"></input>Jazz
+      </label>
+      <br></br>
+      <PlaybackWithAttribution
+        file={jazzSample}
+        attribution={'"Fast Talkin" by Kevin MacLeod'}
+      />
+      <label>
+        <input type="checkbox" name="Classical"></input>Classical
+      </label>
+      <br></br>
+      <PlaybackWithAttribution
+        file={jazzSample}
+        attribution={'"Fast Talkin" by Kevin MacLeod'}
+      />
+      <label>
+        <input type="checkbox" name="Blues"></input>Blues
+      </label>
+      <br></br>
+      <PlaybackWithAttribution
+        file={jazzSample}
+        attribution={'"Fast Talkin" by Kevin MacLeod'}
+      />
+      <label>
+        <input type="checkbox" name="K-pop"></input>K-pop
+      </label>
+      <br></br>
+      <PlaybackWithAttribution
+        file={jazzSample}
+        attribution={'"Fast Talkin" by Kevin MacLeod'}
+      />
+      <label>
+        <input type="checkbox" name="Lo-fi"></input>Lo-fi
+      </label>
+      <br></br>
+      <PlaybackWithAttribution
+        file={jazzSample}
+        attribution={'"Fast Talkin" by Kevin MacLeod'}
+      />
+      <label>
+        <input type="checkbox" name="Hip-hop/Rap"></input>Hip-hop/Rap
       </label>
       <br></br>
       <PlaybackWithAttribution

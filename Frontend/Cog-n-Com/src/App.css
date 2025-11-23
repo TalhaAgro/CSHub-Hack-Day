@@ -174,3 +174,29 @@ button:hover {
 }
 
 /* end of DEVS */
+
+/* RESULTS */
+
+.songsFlexbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+  margin-bottom: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.song {
+  background-color: ivory;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+/* end of RESULT */
