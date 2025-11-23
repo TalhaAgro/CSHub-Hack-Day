@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRef } from "react";
+import { useEffect } from "react";
 import cogNComLogo from "./assets/templogo.png";
 import minhPhoto from "./assets/linkedin/minh.jpg";
 import violaPhoto from "./assets/linkedin/viola.jpg";
@@ -48,6 +49,12 @@ function App() {
       setAudioHistory(audioFileHistory.concat(selectedFile)); // Append the selected file
     }
   };
+
+  useEffect(() => {
+    if (audioFileHistory.length > 0) {
+      setFileHistoryIndex(audioFileHistory.length - 1);
+    }
+  }, [audioFileHistory]);
 
   const changeFileHistoryIndex = (change) => {
     if (typeof change === "number" && Number.isInteger(change)) {

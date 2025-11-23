@@ -3,8 +3,10 @@ import { PlaybackWithAttribution } from "./Playback";
 import rockSample from "../assets/royaltyfree/Pump.mp3";
 import popSample from "../assets/royaltyfree/Poofy Reel.mp3";
 import jazzSample from "../assets/royaltyfree/Fast Talkin.mp3";
+import classicalSample from "../assets/royaltyfree/Danse Macabre - Light Dance.mp3";
+import bluesSample from "../assets/royaltyfree/Porch Blues.mp3";
 
-export default function Form() {
+export default function Form(submitMethod) {
   return (
     <div className="musicForm">
       <h2>
@@ -30,9 +32,6 @@ export default function Form() {
       </label>
       <label>
         <input type="checkbox" name="Energetic"></input>Energetic
-      </label>
-      <label>
-        <input type="checkbox" name="Chill"></input>Chill
       </label>
       <label>
         <input type="checkbox" name="Chill"></input>Dreamy
@@ -79,24 +78,16 @@ export default function Form() {
       </label>
       <br></br>
       <PlaybackWithAttribution
-        file={jazzSample}
-        attribution={'"Fast Talkin" by Kevin MacLeod'}
+        file={classicalSample}
+        attribution={'"Danse Macabre - Light Dance" by Kevin MacLeod'}
       />
       <label>
         <input type="checkbox" name="Blues"></input>Blues
       </label>
       <br></br>
       <PlaybackWithAttribution
-        file={jazzSample}
-        attribution={'"Fast Talkin" by Kevin MacLeod'}
-      />
-      <label>
-        <input type="checkbox" name="K-pop"></input>K-pop
-      </label>
-      <br></br>
-      <PlaybackWithAttribution
-        file={jazzSample}
-        attribution={'"Fast Talkin" by Kevin MacLeod'}
+        file={bluesSample}
+        attribution={'"Porch Blues" by Kevin MacLeod'}
       />
       <label>
         <input type="checkbox" name="Lo-fi"></input>Lo-fi
@@ -114,7 +105,9 @@ export default function Form() {
         file={jazzSample}
         attribution={'"Fast Talkin" by Kevin MacLeod'}
       />
-      <button>Start Analysis</button>
+      <button type="button" onClick={() => submitMethod()}>
+        Start Analysis
+      </button>
     </div>
   );
 }

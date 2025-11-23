@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "../App.css";
 import leftButton from "../assets/History_left.png";
 import rightButton from "../assets/History_right.png";
@@ -11,7 +12,7 @@ export function UserAudioPlayback({ file, changeFileIndex }) {
         className="playbackArrow"
         onClick={() => changeFileIndex(-1)}
       />
-      <span>Playback: </span>
+      <span>Playback: {file.name}</span>
       <img
         src={rightButton}
         alt="Go to the next file"
@@ -19,7 +20,7 @@ export function UserAudioPlayback({ file, changeFileIndex }) {
         onClick={() => changeFileIndex(1)}
       />
       <br></br>
-      <Playback file={file} />
+      <Playback file={URL.createObjectURL(file)} />
     </div>
   );
 }
@@ -34,8 +35,17 @@ export function PlaybackWithAttribution({ file, attribution }) {
 }
 
 export default function Playback({ file }) {
+  const playback = useRef(null);
+  useEffect(() => {
+    const isPlaying = !playback.current.paused;
+    playback.current.load();
+    if (isPlaying) {
+      playback.current.play();
+    }
+  }, [file]);
+
   return (
-    <audio controls>
+    <audio ref={playback} controls>
       <source src={file} type={file.type} />
       Your browser does not support the audio element.
     </audio>
