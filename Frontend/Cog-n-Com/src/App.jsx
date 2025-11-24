@@ -144,17 +144,17 @@ function App() {
           <div>
             <img src={talhaPhoto} alt="Talha Agro's Photo"></img>
             <h3>Talha Agro</h3>
-            <p>Gemini Developer</p>
+            <p>Back-end Development</p>
           </div>
           <div>
             <img src={violaPhoto} alt="Viola Sergyous's Photo"></img>
             <h3>Viola Sergyous</h3>
-            <p>Developer</p>
+            <p>Documentation, Feature Planning and Organization</p>
           </div>
           <div>
             <img src={minhPhoto} alt="Nhat Minh Phan's Photo"></img>
             <h3>Nhat Minh Phan</h3>
-            <p>Front-end Developer, Designer</p>
+            <p>Front-end Development, Web Design</p>
           </div>
         </div>
       </div>

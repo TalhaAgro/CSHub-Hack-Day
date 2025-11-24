@@ -18,5 +18,23 @@ export interface AnalysisResult {
 }
 
 // UI Constants
-export const MOODS = ['Sad', 'Nostalgic', 'Happy', 'Energetic', 'Chill', 'Focus', 'Romantic', 'Angry', 'Dreamy'];
-export const GENRES = ['Jazz', 'Pop', 'Rock', 'Classical', 'Hip-Hop', 'Electronic', 'R&B', 'Country', 'Indie', 'Metal'];
+export const MOODS = [
+  "Sad",
+  "Nostalgic",
+  "Happy",
+  "Energetic",
+  "Chill",
+  "Focus",
+  "Romantic",
+  "Angry",
+  "Dreamy",
+];
+export const GENRES = [
+  "Jazz",
+  "Pop",
+  "Rock",
+  "Classical",
+  "Hip-Hop/Rap",
+  "Lo-fi",
+  "Blues",
+];
