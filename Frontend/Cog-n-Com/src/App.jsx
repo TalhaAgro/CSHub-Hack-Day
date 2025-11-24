@@ -67,6 +67,35 @@ function App() {
     }
   };
 
+  const submitMethod = (moodInputs, genreInputs) => {
+    console.log(moodInputs);
+    let str = "My moods are: ";
+    const moodKeys = Object.keys(moodInputs);
+    const genreKeys = Object.keys(genreInputs);
+    for (const key of moodKeys) {
+      if (key !== "others" && moodInputs[key] === true) {
+        str += key + ", ";
+      } else if (
+        key === "others" &&
+        moodInputs["others"] !== null &&
+        moodInputs["others"] !== undefined &&
+        moodInputs["others"].length > 0
+      ) {
+        const split = moodInputs[key].split(" ");
+        for (const word of split) {
+          str += word + ", ";
+        }
+      }
+    }
+    str += "\nMy genres are: ";
+    for (const key of genreKeys) {
+      if (genreInputs[key] === true) {
+        str += key + ", ";
+      }
+    }
+    alert(str);
+  };
+
   return (
     <>
       <div>
@@ -106,7 +135,7 @@ function App() {
           changeFileIndex={changeFileHistoryIndex}
         />
       ) : null}
-      <Form />
+      <Form submitMethod={submitMethod} />
       {showResults ? <Results /> : null}
       <hr></hr>
       <div className="devs">
