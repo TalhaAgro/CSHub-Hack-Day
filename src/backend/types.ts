@@ -14,7 +14,6 @@ export interface Song {
 export interface AnalysisResult {
   recognized?: Song | null; // Can be null if no file uploaded
   recommendations: Song[];
-  message?: string; //a friendly summary message
 }
 
 // UI Constants

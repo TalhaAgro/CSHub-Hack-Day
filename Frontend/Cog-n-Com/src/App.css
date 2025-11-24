@@ -107,6 +107,11 @@ button:hover {
   background-color: rgb(7, 155, 56);
   border-color: white;
 }
+
+button:disabled {
+  background-color: rgb(68, 68, 68);
+  border-color: white;
+}
 /* end of Buttons */
 
 /* Music form */

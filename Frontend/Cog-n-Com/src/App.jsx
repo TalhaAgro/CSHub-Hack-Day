@@ -20,6 +20,8 @@ function App() {
   const [fileHistoryIndex, setFileHistoryIndex] = useState(0); // [0, +inf) ; The current index of the audio file history for playback
   const [showResults, setShowResults] = useState(false);
 
+  const [showLoading, setShowLoading] = useState(false);
+
   const showErrorWithTimeout = () => {
     setShowError(true);
     // Dismount LINK_ERROR_TEXT after 10 seconds
@@ -68,32 +70,68 @@ function App() {
   };
 
   const submitMethod = (moodInputs, genreInputs) => {
-    console.log(moodInputs);
+    setShowResults(false);
+
+    const moodArray = [];
+    const genreArray = [];
+
+    const formData = new FormData();
+
     let str = "My moods are: ";
     const moodKeys = Object.keys(moodInputs);
     const genreKeys = Object.keys(genreInputs);
+
     for (const key of moodKeys) {
       if (key !== "others" && moodInputs[key] === true) {
         str += key + ", ";
+        moodArray.push(key);
       } else if (
         key === "others" &&
         moodInputs["others"] !== null &&
         moodInputs["others"] !== undefined &&
         moodInputs["others"].length > 0
       ) {
-        const split = moodInputs[key].split(" ");
-        for (const word of split) {
-          str += word + ", ";
-        }
+        // const split = moodInputs[key].split(" ");
+        // for (const word of split) {
+        //   str += word + ", ";
+        //   moodArray.push(word);
+        // }
+        formData.append("customMood", moodInputs["others"]);
       }
     }
     str += "\nMy genres are: ";
     for (const key of genreKeys) {
       if (genreInputs[key] === true) {
         str += key + ", ";
+        genreArray.push(key);
       }
     }
     alert(str);
+    console.log(moodArray);
+    console.log(genreArray);
+
+    formData.append("file", audioFileHistory[fileHistoryIndex]);
+    moodArray.forEach((m) => formData.append("moods", m));
+    genreArray.forEach((g) => formData.append("genres", g));
+    setShowLoading(true);
+
+    if (audioFileHistory.length > 0) {
+      fetch("http://localhost:5000/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((json) => {
+          //console.log(json);
+          setShowResults(true);
+          setShowLoading(false);
+        });
+    }
   };
 
   return (
@@ -135,7 +173,8 @@ function App() {
           changeFileIndex={changeFileHistoryIndex}
         />
       ) : null}
-      <Form submitMethod={submitMethod} />
+      <Form submitMethod={submitMethod} loadingResults={showLoading} />
+      {showLoading ? <p>Loading...</p> : null}
       {showResults ? <Results /> : null}
       <hr></hr>
       <div className="devs">

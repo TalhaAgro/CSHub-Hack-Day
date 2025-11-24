@@ -1,5 +1,5 @@
 import "../App.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PlaybackWithAttribution } from "./Playback";
 import rockSample from "../assets/royaltyfree/Pump.mp3";
 import popSample from "../assets/royaltyfree/Poofy Reel.mp3";
@@ -9,9 +9,10 @@ import bluesSample from "../assets/royaltyfree/Porch Blues.mp3";
 import lofiSample from "../assets/royaltyfree/Avanti - Time (freetouse.com).mp3";
 import hiphopSample from "../assets/royaltyfree/Zambolino - Above The Sky (freetouse.com).mp3";
 
-export default function Form({ submitMethod }) {
+export default function Form({ submitMethod, loadingResults }) {
   const [moodInputs, setMoodInputs] = useState({});
   const [genreInputs, setGenreInputs] = useState({});
+  const submitButton = useRef(null);
 
   const handleChange = (e) => {
     const target = e.target;
@@ -35,6 +36,14 @@ export default function Form({ submitMethod }) {
 
     submitMethod(moodInputs, genreInputs);
   };
+
+  useEffect(() => {
+    if (loadingResults === false) {
+      submitButton.current.disabled = false;
+    } else {
+      submitButton.current.disabled = true;
+    }
+  }, [loadingResults]);
 
   return (
     <form className="musicForm" onSubmit={handleSubmit}>
@@ -267,7 +276,9 @@ export default function Form({ submitMethod }) {
         file={hiphopSample}
         attribution={'"Above The Sky" by Zambolino'}
       />
-      <button type="submit">Start Analysis</button>
+      <button type="submit" ref={submitButton}>
+        Start Analysis
+      </button>
     </form>
   );
 }
